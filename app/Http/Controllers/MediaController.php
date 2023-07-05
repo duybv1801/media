@@ -46,13 +46,13 @@ class MediaController extends Controller
         $request->validate([
             'image' => 'image|mimes:jpg,png,svg|max:10240',
         ]);
-        $image = $request->name;
+        $image = $request->image;
         $media = new Media();
         if ($image) {
             $imageName = $this->generateImageName($image->extension());
             $imagePath = $image->storeAs('public/upload/' . date('Y/m/d'), $imageName);
             $imageUrl = Storage::url($imagePath);
-            $media->name = $imageName;
+            $media->image = $imageName;
             $media->path = $imagePath;
             $media->url = $imageUrl;
         }
@@ -98,7 +98,7 @@ class MediaController extends Controller
         $request->validate([
             'image' => 'image|mimes:jpg,png,svg|max:10240',
         ]);
-        $image = $request->name;
+        $image = $request->image;
         if ($image) {
             if ($media->name) {
                 Storage::delete($media->path);
@@ -106,7 +106,7 @@ class MediaController extends Controller
             $imageName = $this->generateImageName($image->extension());
             $imagePath = $image->storeAs('public/upload/' . date('Y/m/d'), $imageName);
             $imageUrl = Storage::url($imagePath);
-            $media->name = $imageName;
+            $media->image = $imageName;
             $media->path = $imagePath;
             $media->url = $imageUrl;
             $media->save();

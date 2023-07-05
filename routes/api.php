@@ -19,9 +19,9 @@ use App\Http\Controllers\MediaController;
 Route::group(['prefix' => 'media'], function () {
     Route::get('/', [MediaController::class, 'index'])->name('media.index');
     Route::post('/', [MediaController::class, 'store'])->name('media.store');
-    Route::get('/{id}', [MediaController::class, 'show'])->name('media.show');
-    Route::post('/{id}', [MediaController::class, 'update'])->name('media.update');
-    Route::delete('/{id}', [MediaController::class, 'destroy'])->name('media.destroy');
+    Route::get('/{media}', [MediaController::class, 'show'])->name('media.show');
+    Route::post('/{media}', [MediaController::class, 'update'])->name('media.update');
+    Route::delete('/{media}', [MediaController::class, 'destroy'])->name('media.destroy');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -70,9 +70,8 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Media $media)
     {
-        $media  = Media::find($id);
         return response()->json($media);
     }
 
@@ -94,13 +93,12 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Media $media)
     {
         $request->validate([
             'image' => 'image|mimes:jpg,png,svg|max:10240',
         ]);
         $image = $request->name;
-        $media = Media::find($id);
         if ($image) {
             if ($media->name) {
                 Storage::delete($media->path);
@@ -127,12 +125,10 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Media $media)
     {
-        $media = media::find($id);
         Storage::delete($media->path);
         $media->delete();
-
         return response()->json([
             'message' => 'Media deleted successfully'
         ]);
